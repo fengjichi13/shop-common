@@ -148,9 +148,13 @@ public final class CookieUtils {
                 cookie.setMaxAge(cookieMaxage);
             if (null != request) {// 设置域名的cookie
             	String domainName = getDomainName(request);
-            	System.out.println(domainName);
+//            	System.out.println("domainName:"+domainName);
                 if (!"localhost".equals(domainName)) {
-                	cookie.setDomain(domainName);
+                	//cookie.setDomain(domainName);//tomcat8.5以前使用
+                	//在tomcat8.5以上版本，因为domain不能用“.”开头，所以要加上下面代码去掉“.”-----开始--------
+                	String domainNameSub = domainName.substring(1, domainName.length());
+                    cookie.setDomain(domainNameSub);
+                    //-----------------------------结束----------------------------------
                 }
             }
             cookie.setPath("/");
@@ -178,10 +182,15 @@ public final class CookieUtils {
                 cookie.setMaxAge(cookieMaxage);
             if (null != request) {// 设置域名的cookie
             	String domainName = getDomainName(request);
-            	System.out.println(domainName);
+//            	System.out.println("domainName:"+domainName);
                 if (!"localhost".equals(domainName)) {
-                	cookie.setDomain(domainName);
+                	//cookie.setDomain(domainName);//tomcat8.5以前使用
+                	//在tomcat8.5以上版本，因为domain不能用“.”开头，所以要加上下面代码去掉“.”-----开始--------
+                	String domainNameSub = domainName.substring(1, domainName.length());
+                    cookie.setDomain(domainNameSub);
+                    //-----------------------------结束----------------------------------
                 }
+                
             }
             cookie.setPath("/");
             response.addCookie(cookie);
